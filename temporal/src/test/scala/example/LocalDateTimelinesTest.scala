@@ -1,13 +1,9 @@
 package example
 
+import example.LocalDateTimelines.LocalDateTimed._
+import example.LocalDateTimelines.date
 import example.TestData2._
-import cats.instances.all._
-import cats.syntax.all._
 import org.scalatest.{FlatSpec, Matchers}
-import java.time.LocalDate
-
-import LocalDateTimelines.LocalDateTimed._
-import LocalDateTimelines.date
 
 
 class LocalDateTimelinesTest  extends FlatSpec with Matchers {

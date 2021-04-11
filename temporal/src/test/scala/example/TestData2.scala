@@ -3,13 +3,12 @@ package example
 import java.time.LocalDate
 
 import cats.collections.Discrete
+import example.LocalDateTimelines.date
 
 object TestData2 {
 
-  def date(year: Int, month: Int, day: Int): LocalDate = LocalDate.of(year, month, day)
   implicit def localDateEnum: Discrete[LocalDate] = new Discrete[LocalDate] {
     override def succ(x: LocalDate): LocalDate = x.plusDays(1)
-
     override def pred(x: LocalDate): LocalDate = x.minusDays(1)
   }
 
