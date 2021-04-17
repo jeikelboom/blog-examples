@@ -34,7 +34,6 @@ object SharesModel {
 
   case class Record(shares: Shares, price: Euro){
     val value = shares.value(price)
-
     override def toString: String = s"$value = $shares * $price"
   }
 

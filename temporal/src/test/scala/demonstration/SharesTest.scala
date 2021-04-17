@@ -60,7 +60,7 @@ class SharesTest extends FlatSpec with Matchers {
   "values" should "be computed from shares and prices" in {
     val actual = for (shares <- sharesTl;
                       price <- priceTl) yield shares.value(price)
-    actual shouldEqual(actual)
+    actual shouldEqual actual
     println(s"values = $actual")
   }
 
@@ -68,7 +68,7 @@ class SharesTest extends FlatSpec with Matchers {
     val prices = combinedTl.map(_.price)
     val shares = combinedTl.map(_.shares)
     val actual = for (sh <- shares;
-                      pr <- prices) yield (Record( sh, pr) )
+                      pr <- prices) yield Record( sh, pr)
     actual shouldEqual combinedTl
   }
 }
