@@ -7,7 +7,9 @@ import scala.annotation.tailrec
 
 object TemporalData {
 
-  case class Interval[T](start: T, end: T)
+  case class Interval[T](start: T, end: T) {
+    override def toString: String = s"[$start, $end]"
+  }
 
   trait TimeUnit[T] extends Order[T] {
     val MIN: T

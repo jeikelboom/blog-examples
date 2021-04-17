@@ -10,9 +10,20 @@ object SharesModel {
 
   class Euro(val amount: BigDecimal) extends AnyVal {
     override def toString: String = {
-      val df = NumberFormat.getCurrencyInstance(Locale.getDefault)
+      val df = NumberFormat.getCurrencyInstance()
       s"${df.format(amount)}"
     }
+  }
+
+  class Shares(val count: Int) extends AnyVal {
+    override def toString: String = s"$count shrs"
+  }
+
+  def computeValue(shares: Shares, stockprice: Euro): Euro = new Euro(shares.count * stockprice.amount)
+
+  case class Record(shares: Shares, price: Euro){
+    val value = computeValue(shares, price)
+    override def toString: String = s"$value = $shares * $price"
   }
 
   object Euro {
@@ -23,19 +34,11 @@ object SharesModel {
     def apply(amount: BigDecimal) = new Euro(amount)
   }
 
-  class Shares(val count: Int) extends AnyVal {
-    def value(stockPrice: Euro): Euro = new Euro(count * stockPrice.amount)
-    override def toString: String = s"$count shrs"
-  }
 
   object Shares {
     def apply(count: Int): Shares = new Shares(count)
   }
 
-  case class Record(shares: Shares, price: Euro){
-    val value = shares.value(price)
-    override def toString: String = s"$value = $shares * $price"
-  }
 
   implicit def intToSHares(i: Int) = Shares(i)
   implicit def intToEuro(i: Int): Euro = Euro(i)
