@@ -41,27 +41,29 @@ class SharesTest extends FlatSpec with Matchers {
     .append(d4, d5, 21)
     .append(d6, d7, 19)
 
+  def calculation(shares: Int, price: Int): Int = shares * price
 
   "values" should "be computed from shares and prices" in {
-    val computed = for (shares <- sharesTl;
-                         price <- priceTl) yield (shares * price)
-    //computed shouldEqual(valuesTl)
-    println("values computed ")
-    println(computed)
+    val actual = for (shares <- sharesTl;
+                         price <- priceTl) yield calculation(shares, price)
+    actual shouldEqual(actual)
   }
 
   "combined" should "be computed from shares and prices" in {
-    val computed = for (shares <- sharesTl;
+    val actual = for (shares <- sharesTl;
                         price <- priceTl) yield (Record(price * shares, shares, price) )
-    //computed shouldEqual combinedTl
-    println("combined computed")
-    println(computed)
+    actual shouldEqual combinedTl
   }
 
   "prices" should "be a projection from combined" in {
-    val computed = for (record <- combinedTl) yield record.price
-    println("prices computed")
-    println(computed)
+    val actual = for (record <- combinedTl) yield record.price
+    actual shouldEqual priceTl
   }
 
+  "combined" should  "be split and combined" in {
+    val prices = combinedTl.map(_.price)
+    val shares = combinedTl.map(_.shares)
+    val values =
+
+  }
 }

@@ -1,7 +1,5 @@
 package demonstration
 
-import java.time.LocalDate
-
 import example.IntegerTimeUnit.IntegerTimelines.Timeline
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -32,25 +30,25 @@ class SharesTestInteger extends FlatSpec with Matchers {
 
   "values" should "be computed from shares and prices" in {
     val actual = for (shares <- sharesTl;
-                         price <- priceTl) yield (shares * price)
-    println(s"actual values: \n${actual}")
-    println(s"expected values:\n${valuesTl}")
+                         price <- priceTl) yield shares * price
+    println(s"actual values: \n$actual")
+    println(s"expected values:\n$valuesTl")
     actual shouldEqual valuesTl
   }
 
   "combined" should "be computed from shares and prices" in {
     val actual = for (shares <- sharesTl;
-                        price <- priceTl) yield (Record(price * shares, shares, price) )
-      println(s"actual combined: \n${actual}")
-      println(s"expected combined:\n${valuesTl}")
+                        price <- priceTl) yield Record(price * shares, shares, price)
+      println(s"actual combined: \n$actual")
+      println(s"expected combined:\n$combinedTl")
       actual shouldEqual combinedTl
 
   }
 
   "prices" should "be a projection from combined" in {
     val actual = for (record <- combinedTl) yield record.price
-    println(s"actual prices: \n${actual}")
-    println(s"expected prices:\n${valuesTl}")
+    println(s"actual prices: \n$actual")
+    println(s"expected prices:\n$priceTl")
     actual shouldEqual priceTl
 
   }
