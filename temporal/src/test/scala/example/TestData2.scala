@@ -3,7 +3,7 @@ package example
 import java.time.LocalDate
 
 import cats.collections.Discrete
-import example.LocalDateTimelines.date
+import example.LocalDateTimeUnit.date
 
 object TestData2 {
 

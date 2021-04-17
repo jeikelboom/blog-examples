@@ -1,12 +1,12 @@
 package example
 
-import example.LocalDateTimelines.LocalDateTime._
-import example.LocalDateTimelines.date
+import example.LocalDateTimeUnit.LocalDateTimeLines._
+import example.LocalDateTimeUnit.date
 import example.TestData2._
 import org.scalatest.{FlatSpec, Matchers}
 
 
-class LocalDateTimelinesTest  extends FlatSpec with Matchers {
+class LocalDateTimeLinesUnitTest  extends FlatSpec with Matchers {
   val tlea1 = IntervalData(d1, d2, "Hello")
   val tlea2 = IntervalData(d2s, d3, "World")
   val tlea3 = IntervalData(d3s, d5, "overall")

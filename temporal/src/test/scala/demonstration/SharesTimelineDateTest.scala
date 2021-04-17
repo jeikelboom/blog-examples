@@ -1,8 +1,8 @@
 package demonstration
 
 import SharesModel._
-import example.LocalDateTimelines.LocalDateTime._
-import example.LocalDateTimelines.date
+import example.LocalDateTimeUnit.LocalDateTimeLines._
+import example.LocalDateTimeUnit.date
 import java.time.LocalDate
 
 import org.scalatest.{FlatSpec, Matchers}
