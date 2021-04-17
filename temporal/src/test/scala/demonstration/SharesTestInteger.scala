@@ -11,7 +11,7 @@ class SharesTestInteger extends FlatSpec with Matchers {
   case class Record(value: Int, shares: Int, price: Int)
   val combinedTl: Timeline[Record] = Timeline()
     .append(1, 2, Record(2000, 100, 20))
-    .append(3, 4, Record(2400, 120, 20))
+    .append(3, 3, Record(2400, 120, 20))
     .append(4, 5, Record(2520, 120, 21))
     .append(6, 7, Record(2280, 120, 19))
 
@@ -26,9 +26,9 @@ class SharesTestInteger extends FlatSpec with Matchers {
     .append(3, 7, 120)
 
   val priceTl: Timeline[Int] = Timeline()
-    .append(6, 7, 19)
-    .append(4, 5, 21)
     .append(1, 3, 20)
+    .append(4, 5, 21)
+    .append(6, 7, 19)
 
   "values" should "be computed from shares and prices" in {
     val actual = for (shares <- sharesTl;
