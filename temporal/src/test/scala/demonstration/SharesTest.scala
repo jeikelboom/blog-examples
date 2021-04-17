@@ -41,7 +41,6 @@ class SharesTest extends FlatSpec with Matchers {
     .append(d4, d5, 21)
     .append(d6, d7, 19)
 
-  def calculation(shares: Int, price: Int): Int = shares * price
 
   "values" should "be computed from shares and prices" in {
     val actual = for (shares <- sharesTl;
