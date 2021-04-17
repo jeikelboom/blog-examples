@@ -2,6 +2,7 @@ package example
 
 import cats.collections.{Discrete, Range}
 import cats.{Applicative, Order}
+
 import scala.annotation.tailrec
 
 object TemporalData {
@@ -24,12 +25,12 @@ object TemporalData {
     override def contains(interval: Interval[T], timestamp: T): Boolean = lteqv(interval.start, timestamp) && gteqv(interval.end, timestamp)
 
     /**
-      * newer overwites the old from the start of the newer
-      *
-      * @param old an existing record
-      * @param newer a new record overwriting old
-      * @return list with 1 any leftover from old and 2 newer
-      */
+     * newer overwites the old from the start of the newer
+     *
+     * @param old an existing record
+     * @param newer a new record overwriting old
+     * @return list with 1 any leftover from old and 2 newer
+     */
     override def overwrite(old:Interval[T], newer: Interval[T]): List[Interval[T]] = {
       if (gteqv(succ(old.end), newer.start)) List(Interval(old.start, newer.end))
       else List(old, newer)
@@ -75,7 +76,6 @@ object TemporalData {
 
       override def toString: String = s"$interval => $value"
     }
-
 
     case class Timeline[A](history: List[IntervalData[A]] = List()) {
       lazy val reversed : List[IntervalData[A]] = history.reverse
@@ -124,8 +124,8 @@ object TemporalData {
       def contains(time: T): Boolean = history.find(p => timeUnit.lteqv(p.start, time) && timeUnit.lteqv(time, p.end)).isDefined
 
       def subTimeline(start: T, end: T): Timeline[A] = Timeline(history
-          .filter(e => timeUnit.lteqv(e.start, end) && timeUnit.gteqv(e.end, start))
-          .map(e => IntervalData(timeUnit.max(start, e.start), timeUnit.min(end,e.end), e.value )))
+        .filter(e => timeUnit.lteqv(e.start, end) && timeUnit.gteqv(e.end, start))
+        .map(e => IntervalData(timeUnit.max(start, e.start), timeUnit.min(end,e.end), e.value )))
 
       def unpack(): List[(T, A)] = history.flatMap(elt => timeUnit.toUnits(elt.interval).reverse.map(t => (t, elt.value)))
 

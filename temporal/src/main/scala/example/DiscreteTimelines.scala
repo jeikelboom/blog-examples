@@ -1,6 +1,8 @@
 package example
-import example.TemporalData._
+
 import java.time.LocalDate
+
+import example.TemporalData.{DiscreteTimeUnit, Time}
 
 object IntegerTimeUnit {
   private implicit def integerTimeUnit: DiscreteTimeUnit[Int] = new DiscreteTimeUnit[Int] {
@@ -31,7 +33,7 @@ object LocalDateTimelines {
     override def pred(x: LocalDate): LocalDate = x.minusDays(1)
   }
 
-  object LocalDateTimed extends Time[LocalDate]
+  object LocalDateTime extends Time[LocalDate]
 
   def date(year: Int, month: Int, day: Int): LocalDate = LocalDate.of(year, month, day)
 

@@ -1,6 +1,6 @@
 package example
 
-import example.LocalDateTimelines.LocalDateTimed._
+import example.LocalDateTimelines.LocalDateTime._
 import example.LocalDateTimelines.date
 import example.TestData2._
 import org.scalatest.{FlatSpec, Matchers}
