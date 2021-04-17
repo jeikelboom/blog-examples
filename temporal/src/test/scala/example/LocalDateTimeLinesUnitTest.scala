@@ -7,10 +7,10 @@ import org.scalatest.{FlatSpec, Matchers}
 
 
 class LocalDateTimeLinesUnitTest  extends FlatSpec with Matchers {
-  val tlea1 = IntervalData(d1, d2, "Hello")
-  val tlea2 = IntervalData(d2s, d3, "World")
-  val tlea3 = IntervalData(d3s, d5, "overall")
-  val tla: Timeline[String] = Timeline(List(tlea3, tlea2, tlea1))
+  private val tlea1 = IntervalData(d1, d2, "Hello")
+  private val tlea2 = IntervalData(d2s, d3, "World")
+  private val tlea3 = IntervalData(d3s, d5, "overall")
+  private val tla: Timeline[String] = Timeline(List(tlea3, tlea2, tlea1))
 
   "simple timeline " should "multiply" in {
     val tlf = timeLineApplicative.pure((s: String) => s.length)
