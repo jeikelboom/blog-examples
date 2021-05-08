@@ -42,9 +42,7 @@ object SharesModel {
     def apply(count: Int): Shares = new Shares(count)
   }
 
-
-  implicit def intToSHares(i: Int) = Shares(i)
+  implicit def intToSHares(i: Int): Shares = Shares(i)
   implicit def intToEuro(i: Int): Euro = Euro(i)
-
 
 }
