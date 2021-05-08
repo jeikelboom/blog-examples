@@ -13,16 +13,19 @@ object SharesModel {
       val df = NumberFormat.getCurrencyInstance()
       s"${df.format(amount)}"
     }
+
+    def *(shares: Shares): Euro = new Euro(shares.count * amount)
   }
 
   class Shares(val count: Int) extends AnyVal {
     override def toString: String = s"$count shrs"
   }
 
-  def computeValue(shares: Shares, stockprice: Euro): Euro = new Euro(shares.count * stockprice.amount)
+  def computeValue(stockprice: Euro, shares: Shares): Euro =
+    stockprice * shares
 
   case class Record(shares: Shares, price: Euro){
-    val value = computeValue(shares, price)
+    val value = computeValue(price, shares)
     override def toString: String = s"$value = $shares * $price"
   }
 

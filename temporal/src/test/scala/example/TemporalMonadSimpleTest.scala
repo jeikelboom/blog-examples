@@ -38,7 +38,7 @@ class TemporalMonadSimpleTest  extends FlatSpec with Matchers {
   "for" should "give the same result" in {
     val result1 = for (i1 <- timeline1;
                        i2 <- timeline2;
-                       i3 <- timeline3) yield (i1 + i2 + i3)
+                       i3 <- timeline3) yield i1 + i2 + i3
     result1 shouldEqual  expected
   }
 
