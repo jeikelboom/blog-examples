@@ -48,14 +48,17 @@ class SharesTimelineIntegerTest extends FlatSpec with Matchers {
     println(s"shares = $actual1")
   }
 
-  "values" should "be computed from shares and prices" in {
-    val actual1 = for (shares <- sharesTl;
+  "values" should "be computed from shares and prices with for" in {
+    val actual = for (shares <- sharesTl;
                        price <- priceTl) yield computeValue(price, shares)
-    val computeValuePure: Timeline[(Shares, Euro) => Euro] = timeLineApplicative.pure((a,b) =>computeValue(b, a))
-    val actual2 = timeLineApplicative.ap2(computeValuePure)(sharesTl, priceTl)
-    actual1 shouldEqual valuesTl
-    actual2 shouldEqual valuesTl
-    println(s"values = $actual1")
+    actual shouldEqual valuesTl
+  }
+
+  "values" should "be computed from shares and prices with ap2" in {
+    val computeValuePure: Timeline[(Shares, Euro) => Euro] =
+      timeLineApplicative.pure((a,b) =>computeValue(b, a))
+    val actual = timeLineApplicative.ap2(computeValuePure)(sharesTl, priceTl)
+    actual shouldEqual valuesTl
   }
 
   "combined" should  "be split and combined" in {
