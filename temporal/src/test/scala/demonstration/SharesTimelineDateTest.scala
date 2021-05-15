@@ -64,10 +64,13 @@ class SharesTimelineDateTest extends FlatSpec with Matchers {
   "values" should "be computed from shares and prices" in {
     val actual1 = for (shares <- sharesTl;
                       price <- priceTl) yield computeValue(price, shares)
-    val computeValuePure: Timeline[(Shares, Euro) => Euro] = timeLineApplicative.pure((a,b) =>computeValue(b, a))
-    val actual2 = timeLineApplicative.ap2(computeValuePure)(sharesTl, priceTl)
+    val computeValuePure: Timeline[(Euro, Shares) => Euro] = timeLineApplicative.pure((a,b) =>computeValue(a, b))
+    def computeValueTimelines(priceTL: Timeline[Euro], sharesTTL: Timeline[Shares]) =
+      timeLineApplicative.ap2(computeValuePure)(priceTl, sharesTl)
+
+    val valuesTL = computeValueTimelines(priceTl, sharesTl)
     actual1 shouldEqual valuesTl
-    actual2 shouldEqual valuesTl
+    valuesTL shouldEqual valuesTl
     println(s"values = $actual1")
   }
 

@@ -37,12 +37,12 @@ object SharesModel {
     def apply(amount: BigDecimal) = new Euro(amount)
   }
 
-
   object Shares {
     def apply(count: Int): Shares = new Shares(count)
   }
 
   implicit def intToSHares(i: Int): Shares = Shares(i)
   implicit def intToEuro(i: Int): Euro = Euro(i)
+
 
 }
