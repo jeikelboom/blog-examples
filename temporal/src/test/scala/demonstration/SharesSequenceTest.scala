@@ -44,8 +44,40 @@ class SharesSequenceTest extends FlatSpec with Matchers{
     summary.get(30).get shouldEqual Euro(100)
     println(summary)
     println(output)
-
   }
+
+  /*
+  output:
+summaries:
+Note that the otput timeline contains multiple
+values after time 24, that all add up to 100
+Thus they are automatically combined in one interval.
+[48, 2147483647] => € 0,00
+[24, 35] => € 1,00
+[15, 23] => € 1,14
+[14, 14] => € 1,07
+[13, 13] => € 1,20
+[11, 12] => € 1,10
+[8, 10] => € 1,05
+[5, 7] => € 0,79
+[1, 4] => € 0,23
+[-2147483648, 0] => € 0,00
+
+output
+[48, 2147483647] => List(€ 0,00, € 0,00, € 0,00)
+[27, 35] => List(€ 0,37, € 0,18, € 0,45)
+[26, 26] => List(€ 0,36, € 0,18, € 0,46)
+[24, 25] => List(€ 0,36, € 0,09, € 0,55)
+[15, 23] => List(€ 0,36, € 0,12, € 0,66)
+[14, 14] => List(€ 0,36, € 0,05, € 0,66)
+[13, 13] => List(€ 0,49, € 0,05, € 0,66)
+[11, 12] => List(€ 0,49, € 0,05, € 0,56)
+[8, 10] => List(€ 0,49, € 0,00, € 0,56)
+[5, 7] => List(€ 0,23, € 0,00, € 0,56)
+[1, 4] => List(€ 0,23, € 0,00, € 0,00)
+[-2147483648, 0] => List(€ 0,00, € 0,00, € 0,00)
+
+   */
 
   "sum of list" should "add all values" in {
     val aList: List[Euro] = List(Euro(20), Euro(67), Euro(13))
