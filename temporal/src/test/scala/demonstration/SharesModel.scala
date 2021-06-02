@@ -15,6 +15,7 @@ object SharesModel {
     }
 
     def *(shares: Shares): Euro = new Euro(shares.count * amount)
+    def +(other: Euro): Euro = new Euro(this.amount + other.amount)
   }
 
   class Shares(val count: Int) extends AnyVal {
