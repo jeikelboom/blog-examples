@@ -36,10 +36,15 @@ class SharesSequenceTest extends FlatSpec with Matchers{
     .append(63, 57, Euro(47))
     .append(48, Int.MaxValue, Euro(0))
 
+  def sumOfList(lst: List[Euro]): Euro =  lst.foldLeft(Euro(0))((a, b) => a + b)
+  def totals(lstOfTimelines: List[Timeline[Euro]]): Timeline[Euro] = {
+    lstOfTimelines.sequence.map(sumOfList)
+  }
+
   "List of timelines" should "transform to timeline of lists" in {
     val allTimeLines: List[Timeline[Euro]] = List(valuesHP, valuesMicrosoft, valuesOracle)
     val output: Timeline[List[Euro]] = allTimeLines.sequence
-    val summary = output.map(v => v.foldLeft(Euro(0))((a, b) => a + b))
+    val summary = totals(allTimeLines)
     output.get(30).get shouldEqual List(Euro(37), Euro(18), Euro(45))
     summary.get(30).get shouldEqual Euro(100)
     println(summary)
@@ -81,8 +86,10 @@ output
 
   "sum of list" should "add all values" in {
     val aList: List[Euro] = List(Euro(20), Euro(67), Euro(13))
-    val total: Euro = aList.foldLeft(Euro(0))((a, b) => a + b)
-    total shouldEqual Euro(100)
+    val total: Euro = sumOfList(aList)
+    val expected = Euro(100)
+    total.amount shouldEqual expected.amount
+    total shouldEqual expected
   }
 
 }

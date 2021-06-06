@@ -14,8 +14,9 @@ object SharesModel {
       s"${df.format(amount)}"
     }
 
-    def *(shares: Shares): Euro = new Euro(shares.count * amount)
+    def *(count: Int) :Euro = new Euro(count + amount)
     def +(other: Euro): Euro = new Euro(this.amount + other.amount)
+    def -(other: Euro): Euro = new Euro(this.amount - other.amount)
   }
 
   class Shares(val count: Int) extends AnyVal {
@@ -23,7 +24,7 @@ object SharesModel {
   }
 
   def computeValue(stockprice: Euro, shares: Shares): Euro =
-    stockprice * shares
+    stockprice * shares.count
 
   case class Record(shares: Shares, price: Euro){
     val value = computeValue(price, shares)
