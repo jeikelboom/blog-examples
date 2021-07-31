@@ -3,6 +3,7 @@ package demonstration
 import SharesModel._
 import example.IntegerTimeUnit.IntegerTimelines._
 import org.scalatest.{FlatSpec, Matchers}
+import cats.syntax
 
 
 class SharesTimelineIntegerTest extends FlatSpec with Matchers {
@@ -67,6 +68,8 @@ class SharesTimelineIntegerTest extends FlatSpec with Matchers {
     val computeValuePure: Timeline[(Shares, Euro) => Record] = timeLineApplicative.pure((a,b) =>Record(a, b))
     val actual = timeLineApplicative.ap2(computeValuePure)(sharesTl, priceTl)
     actual shouldEqual combinedTl
+    sharesTl.
+    val actual2 = (sharesTl, priceTl).mapN(computeValuePure)
   }
 
 }
