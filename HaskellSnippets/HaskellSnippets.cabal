@@ -26,7 +26,6 @@ source-repository head
 library
   exposed-modules:
       Concepts
-      Lib
   other-modules:
       Paths_HaskellSnippets
   hs-source-dirs:
