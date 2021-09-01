@@ -16,8 +16,13 @@ g _ = T
 lek ::  U -> A
 lek _ = Lek
 
-false :: C
-false = F
+false :: U -> C
+false _ = F
       
 h :: A -> C
 h = g . f
+
+x1, x2, x3 :: C
+x1 = (g . f . lek) Unit
+x2 = (h . lek) Unit
+x3 = false Unit
