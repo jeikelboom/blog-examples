@@ -4,6 +4,7 @@ import Test.HUnit
 
 conceptsSpec :: IO()
 conceptsSpec = do
+  putStrLn "Testing concepts"
   runTestTT tests
   return ()
   

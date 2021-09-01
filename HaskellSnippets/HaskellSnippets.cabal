@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Concepts
+      Currying
   other-modules:
       Paths_HaskellSnippets
   hs-source-dirs:
@@ -53,6 +54,7 @@ test-suite HaskellSnippets-test
   main-is: Spec.hs
   other-modules:
       ConceptsSpec
+      CurryingSpec
       Paths_HaskellSnippets
   hs-source-dirs:
       test
