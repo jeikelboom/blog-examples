@@ -5,7 +5,6 @@ data B = C3 | C4 | C42
 data C = T | F deriving (Eq, Show)
 data U = Unit
 
-
 f :: A -> B
 f Lek = C3
 f Waal = C4
