@@ -1,2 +1,6 @@
+import ConceptsSpec
+
 main :: IO ()
-main = putStrLn "Test suite not yet implemented"
+main = do
+  conceptsSpec
+  return ()

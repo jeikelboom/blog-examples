@@ -25,13 +25,15 @@ source-repository head
 
 library
   exposed-modules:
+      Concepts
       Lib
   other-modules:
       Paths_HaskellSnippets
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
+      HUnit
+    , base >=4.7 && <5
   default-language: Haskell2010
 
 executable HaskellSnippets-exe
@@ -42,7 +44,8 @@ executable HaskellSnippets-exe
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      HaskellSnippets
+      HUnit
+    , HaskellSnippets
     , base >=4.7 && <5
   default-language: Haskell2010
 
@@ -50,11 +53,13 @@ test-suite HaskellSnippets-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      ConceptsSpec
       Paths_HaskellSnippets
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      HaskellSnippets
+      HUnit
+    , HaskellSnippets
     , base >=4.7 && <5
   default-language: Haskell2010
