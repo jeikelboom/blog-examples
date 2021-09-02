@@ -26,3 +26,16 @@ x1, x2, x3 :: C
 x1 = (g . f . lek) Unit
 x2 = (h . lek) Unit
 x3 = false Unit
+
+
+
+-- High order
+-- function evaluation
+eval :: ((A -> B), A) -> B
+eval (f, a) = f a
+
+-- Function composition
+compose :: (B -> C) -> (A -> B) -> (A -> C)
+compose g f a = g (f a)
+
+data Animal = Dog String | Fish 
