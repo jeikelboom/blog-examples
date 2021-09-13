@@ -27,6 +27,7 @@ library
   exposed-modules:
       Concepts
       Currying
+      Modulo
   other-modules:
       Paths_HaskellSnippets
   hs-source-dirs:
@@ -55,6 +56,7 @@ test-suite HaskellSnippets-test
   other-modules:
       ConceptsSpec
       CurryingSpec
+      ModuloSpec
       Paths_HaskellSnippets
   hs-source-dirs:
       test
