@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      Advanced
       Concepts
       Currying
       Modulo
@@ -54,6 +55,7 @@ test-suite HaskellSnippets-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      AdvancedSpec
       ConceptsSpec
       CurryingSpec
       ModuloSpec
