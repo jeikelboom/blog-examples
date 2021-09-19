@@ -43,7 +43,13 @@
         }
         function drawComponent(x, y) {
             var components = [background()]
-            return components[0](x,y)
+            for (var i = 0; i < components.length; i++) {
+                var color = components[0](x,y)
+                if (color["alpha"] != 0) {
+                    return color;
+                }
+            }
+            return black;
         }
 
         function getpixel(x, y) {
