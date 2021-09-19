@@ -1,5 +1,9 @@
 module Main where
+import Advanced
 
 main :: IO ()
 main = do
-  putStrLn "Hi there"
+  functorDemo
+  applicativeDemo
+  monadDemo1
+  monadDemo2

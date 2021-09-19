@@ -5,35 +5,41 @@
 </head>
 <body>
     <H1>picture</H1>
-    <canvas id="painting" width="200" height="100" style="border:1px solid #000000;"></canvas>
+    <canvas id="painting" width="200" height="200" style="border:1px solid #000000;"></canvas>
     <br/>
     <script>
-        draw2()
+        draw()
+
+        var red;
+        var green;
+        var blue;
+        var black;
+
 
         function getpixel(x, y) {
-            return rood;
+            if (x >= 0  && y >=0 ) {
+                return blue;
+            }
+            if (x >=0  && y < 0) {
+                return green
+            }
+            if (x < 0 && y >= 0) {
+                return black;
+            }
+            return red;
         }
 
-        var rood
-        var green
-        var blue
 
-        function init() {
-            let rood = {red:255, green:0, blue:0, alpha:255 }
-            let green = {red:0, green:255, blue:0, alpha:255 }
-            let blue = {red:0, green:0, blue:255, alpha:255 }
-        }
 
-        function draw2() {
+        function draw() {
             init()
-            let rood = {red:255, green:0, blue:0, alpha:255 }
             var ctx = document.getElementById('painting').getContext('2d');
-            var imgdata= ctx.getImageData(0,0, 200,100)
+            var imgdata= ctx.getImageData(0,0, 200,200)
             // for (var i = 0; i < imgdata.data.length;i++) {
-           for (var x =0; x < 100; x++) {
-               for (var y = 0; y < 200; y++) {
-                let pixel = rood;
-                var i = 200 * x + y
+           for (var x = -100; x < 100; x++) {
+               for (var y = -100; y < 100; y++) {
+                let pixel = getpixel(x, y);
+                var i = 200 * (99 -y) + 100 + x
                 imgdata.data[4*i] = pixel["red"];
                 imgdata.data[4*i+1] = pixel["green"];
                 imgdata.data[4*i+2] = pixel["blue"];
@@ -43,15 +49,13 @@
             ctx.putImageData(imgdata,0,0)
         }
 
-
-
-        function draw() {
-            var c = document.getElementById("painting");
-            var ctx = c.getContext("2d");
-            ctx.moveTo(0, 0);
-            ctx.lineTo(200, 100);
-            ctx.stroke();
+        function init() {
+            red = {red:255, green:0, blue:0, alpha:255 }
+            green = {red:0, green:255, blue:0, alpha:255 }
+            blue = {red:0, green:0, blue:255, alpha:255 }
+            black = {red:0, green:0, blue:0, alpha:255 }
         }
+
     </script>
 
 </body >
