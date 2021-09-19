@@ -14,13 +14,43 @@
         var green;
         var blue;
         var black;
+        var opaque
 
+
+        function cirkle() {
+            return
+        }
+
+        function box(sizeX, sizeY, color) {
+            return function(x, y) {
+                if (x >= 0 && x <= sizeX) {
+                    return color;
+                } else {
+                    return opaque;
+                }
+
+            }
+        }
+
+        function background() {
+            return function (x, y) {
+                if ( y >=0 ) {
+                    return blue;
+                } else {
+                    return green
+                }
+            }
+        }
+        function drawComponent(x, y) {
+            var components = [background()]
+            return components[0](x,y)
+        }
 
         function getpixel(x, y) {
-            if (x >= 0  && y >=0 ) {
+            if ( y >=0 ) {
                 return blue;
             }
-            if (x >=0  && y < 0) {
+            if ( y < 0) {
                 return green
             }
             if (x < 0 && y >= 0) {
@@ -38,7 +68,7 @@
             // for (var i = 0; i < imgdata.data.length;i++) {
            for (var x = -100; x < 100; x++) {
                for (var y = -100; y < 100; y++) {
-                let pixel = getpixel(x, y);
+                let pixel = drawComponent(x, y);
                 var i = 200 * (99 -y) + 100 + x
                 imgdata.data[4*i] = pixel["red"];
                 imgdata.data[4*i+1] = pixel["green"];
@@ -54,6 +84,7 @@
             green = {red:0, green:255, blue:0, alpha:255 }
             blue = {red:0, green:0, blue:255, alpha:255 }
             black = {red:0, green:0, blue:0, alpha:255 }
+            opaque = {red:0, green:0, blue:0, alpha:0 }
         }
 
     </script>
