@@ -19,13 +19,15 @@
         function box1() {
             return move(30,30, box(10,40,red))
         }
-        function circle50() {
-            return cirkle(50,black);
+        function circle1() {
+            return circle(20,black);
         }
 
-        function cirkle(radius, color) {
+        function circle(radius, color) {
+            var r2 = radius * radius;
             return function(x,y) {
-                if (x * x + y * y < radius) {
+                var rds = x * x + y * y;
+                if (rds < r2) {
                     return color;
                 }
                 return opaque
