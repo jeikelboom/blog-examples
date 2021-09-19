@@ -16,7 +16,7 @@
         var brown, sandyBrown;
         var black;
         var opaque;
-
+        var picture;
 
         function palette(){
             var colors =["red", "lightSalmon"];
@@ -89,9 +89,14 @@
             }
         }
 
+        function fromArray(components) {
+            return function (x, y) {
+                return drawComponents(x,y, components);
+            }
+        }
+        
         function theBigPicture(x, y) {
-            var components = [circle1(), box1(), background()]
-            return drawComponents(x,y, components);
+            return fromArray(picture)
         }
 
         function drawComponents(x, y, components) {
@@ -106,11 +111,12 @@
 
         function draw() {
             init()
+            picture = [circle1(), box1(), background()];
             var ctx = document.getElementById('painting').getContext('2d');
             var imgdata= ctx.getImageData(0,0, 200,200)
             for (var x = -100; x < 100; x++) {
                for (var y = -100; y < 100; y++) {
-                let pixel = theBigPicture(x, y);
+                let pixel = theBigPicture()(x, y);
                 var i = 200 * (99 -y) + 100 + x
                 imgdata.data[4*i] = pixel["red"];
                 imgdata.data[4*i+1] = pixel["green"];
