@@ -18,19 +18,10 @@
         var opaque;
         var picture;
 
-        function palette(){
-            var colors =["red", "lightSalmon"];
-                //  "red", "lightSalmon", "green", "lawnGreen", "seaGreen",
-                // "lightSeaGreen", "blue", "aqua", "brown", "sandyBrown", "black", "opaque"];
-            function mapper (currentvalue, index) {
-                return move(-100 + index* 15, -100, box(1,1,currentvalue))
 
-            }
-            return function(x,y){
-                drawComponents([box1()])
-            }
+        function box2() {
+            return move(-30,-30, box(10,40,seaGreen))
         }
-
         function box1() {
             return move(30,30, box(10,40,sandyBrown))
         }
@@ -77,9 +68,14 @@
             }
         }
 
+        function palette(){
+            fromArray([box2()])
+        }
+
+
         function fromArray(components) {
             return function (x, y) {
-                for (var i = 0; i < components.length; i++) {
+                for (var  i = 0; i < components.length; i++) {
                     var color = components[i](x,y)
                     if (color["alpha"] != 0) {
                         return color;
@@ -88,25 +84,9 @@
                 return black;
             }
         }
-
-        function fromArray(components) {
-            return function (x, y) {
-                return drawComponents(x,y, components);
-            }
-        }
         
         function theBigPicture(x, y) {
             return fromArray(picture)
-        }
-
-        function drawComponents(x, y, components) {
-            for (var i = 0; i < components.length; i++) {
-                var color = components[i](x,y)
-                if (color["alpha"] != 0) {
-                    return color;
-                }
-            }
-            return black;
         }
 
         function draw() {
