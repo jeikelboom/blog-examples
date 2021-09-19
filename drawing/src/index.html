@@ -10,20 +10,37 @@
     <script>
         draw()
 
-        var red;
+        var red
         var green;
         var blue;
         var black;
-        var opaque
+        var opaque;
 
+        function box1() {
+            return move(30,30, box(10,40,red))
+        }
+        function circle50() {
+            return cirkle(50,black);
+        }
 
-        function cirkle() {
-            return
+        function cirkle(radius, color) {
+            return function(x,y) {
+                if (x * x + y * y < radius) {
+                    return color;
+                }
+                return opaque
+            }
+        }
+
+        function move(x, y, f) {
+            return function(x1,y1) {
+                return f(x1 -x, y1-y)
+            }
         }
 
         function box(sizeX, sizeY, color) {
             return function(x, y) {
-                if (x >= 0 && x <= sizeX) {
+                if (x >= 0 && x <= sizeX && y >= 0 && y < sizeY) {
                     return color;
                 } else {
                     return opaque;
@@ -42,9 +59,9 @@
             }
         }
         function drawComponent(x, y) {
-            var components = [background()]
+            var components = [circle1(), box1(), background()]
             for (var i = 0; i < components.length; i++) {
-                var color = components[0](x,y)
+                var color = components[i](x,y)
                 if (color["alpha"] != 0) {
                     return color;
                 }
