@@ -11,7 +11,7 @@
         draw()
 
         var red, lightSalmon;
-        var green, lawnGreen, seaGreen,lightSeaGreen;
+        var green, lawnGreen, seaGreen,darkCyan;
         var blue,aqua;
         var brown, sandyBrown;
         var black;
@@ -22,6 +22,9 @@
             picture = [fromArray([tree2(), tree1(), background()])];
         }
 
+        function tree2() {
+            return move(-50,10,tree1())
+        }
 
         function tree1() {
             return fromArray([circle1(), box1()])
@@ -30,11 +33,7 @@
             return move(-5,-40, box(10,40,sandyBrown))
         }
         function circle1() {
-            return circle(20,lightSeaGreen);
-        }
-
-        function tree2() {
-            return move(-50,10,tree1())
+            return circle(20,darkCyan);
         }
 
         function circle(radius, color) {
@@ -120,7 +119,7 @@
             green = {red:0, green:255, blue:0, alpha:255 }
             lawnGreen = {red:124, green:252, blue:0, alpha:255 }
             seaGreen = {red:46, green:139, blue:87, alpha:255 }
-            lightSeaGreen = {red:255, green:50, blue:50, alpha:255 }
+            darkCyan = {red:0, green:139, blue:139, alpha:255 }
 
             blue = {red:0, green:0, blue:255, alpha:255 }
             darkBlue = {red:0, green:0, blue:139, alpha:255 }
