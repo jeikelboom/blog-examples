@@ -18,16 +18,23 @@
         var opaque;
         var picture;
 
+        function makePicture(){
+            picture = [fromArray([tree2(), tree1(), background()])];
+        }
 
-        function box2() {
-            return move(-30,-30, box(10,40,seaGreen))
+
+        function tree1() {
+            return fromArray([circle1(), box1()])
         }
         function box1() {
-            return move(30,30, box(10,40,sandyBrown))
+            return move(-5,-40, box(10,40,sandyBrown))
         }
-
         function circle1() {
             return circle(20,lightSeaGreen);
+        }
+
+        function tree2() {
+            return move(-50,10,tree1())
         }
 
         function circle(radius, color) {
@@ -72,7 +79,6 @@
             fromArray([box2()])
         }
 
-
         function fromArray(components) {
             return function (x, y) {
                 for (var  i = 0; i < components.length; i++) {
@@ -81,7 +87,7 @@
                         return color;
                     }
                 }
-                return black;
+                return opaque
             }
         }
         
@@ -91,12 +97,12 @@
 
         function draw() {
             init()
-            picture = [circle1(), box1(), background()];
+            makePicture()
             var ctx = document.getElementById('painting').getContext('2d');
             var imgdata= ctx.getImageData(0,0, 200,200)
             for (var x = -100; x < 100; x++) {
                for (var y = -100; y < 100; y++) {
-                let pixel = theBigPicture()(x, y);
+                let pixel = fromArray(picture)(x, y);
                 var i = 200 * (99 -y) + 100 + x
                 imgdata.data[4*i] = pixel["red"];
                 imgdata.data[4*i+1] = pixel["green"];
