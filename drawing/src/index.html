@@ -10,17 +10,33 @@
     <script>
         draw()
 
-        var red
-        var green;
-        var blue;
+        var red, lightSalmon;
+        var green, lawnGreen, seaGreen,lightSeaGreen;
+        var blue,aqua;
+        var brown, sandyBrown;
         var black;
         var opaque;
 
-        function box1() {
-            return move(30,30, box(10,40,red))
+
+        function palette(){
+            var colors =["red", "lightSalmon"];
+                //  "red", "lightSalmon", "green", "lawnGreen", "seaGreen",
+                // "lightSeaGreen", "blue", "aqua", "brown", "sandyBrown", "black", "opaque"];
+            function mapper (currentvalue, index) {
+                return move(-100 + index* 15, -100, box(1,1,currentvalue))
+
+            }
+            return function(x,y){
+                drawComponents([box1()])
+            }
         }
+
+        function box1() {
+            return move(30,30, box(10,40,sandyBrown))
+        }
+
         function circle1() {
-            return circle(20,black);
+            return circle(20,lightSeaGreen);
         }
 
         function circle(radius, color) {
@@ -54,14 +70,31 @@
         function background() {
             return function (x, y) {
                 if ( y >=0 ) {
-                    return blue;
+                    return darkBlue;
                 } else {
-                    return green
+                    return lawnGreen
                 }
             }
         }
-        function drawComponent(x, y) {
+
+        function fromArray(components) {
+            return function (x, y) {
+                for (var i = 0; i < components.length; i++) {
+                    var color = components[i](x,y)
+                    if (color["alpha"] != 0) {
+                        return color;
+                    }
+                }
+                return black;
+            }
+        }
+
+        function theBigPicture(x, y) {
             var components = [circle1(), box1(), background()]
+            return drawComponents(x,y, components);
+        }
+
+        function drawComponents(x, y, components) {
             for (var i = 0; i < components.length; i++) {
                 var color = components[i](x,y)
                 if (color["alpha"] != 0) {
@@ -71,29 +104,13 @@
             return black;
         }
 
-        function getpixel(x, y) {
-            if ( y >=0 ) {
-                return blue;
-            }
-            if ( y < 0) {
-                return green
-            }
-            if (x < 0 && y >= 0) {
-                return black;
-            }
-            return red;
-        }
-
-
-
         function draw() {
             init()
             var ctx = document.getElementById('painting').getContext('2d');
             var imgdata= ctx.getImageData(0,0, 200,200)
-            // for (var i = 0; i < imgdata.data.length;i++) {
-           for (var x = -100; x < 100; x++) {
+            for (var x = -100; x < 100; x++) {
                for (var y = -100; y < 100; y++) {
-                let pixel = drawComponent(x, y);
+                let pixel = theBigPicture(x, y);
                 var i = 200 * (99 -y) + 100 + x
                 imgdata.data[4*i] = pixel["red"];
                 imgdata.data[4*i+1] = pixel["green"];
@@ -106,8 +123,20 @@
 
         function init() {
             red = {red:255, green:0, blue:0, alpha:255 }
+            lightSalmon = {red:0xFF, green:0xA0, blue:0x7A, alpha:255 }
+
             green = {red:0, green:255, blue:0, alpha:255 }
+            lawnGreen = {red:124, green:252, blue:0, alpha:255 }
+            seaGreen = {red:46, green:139, blue:87, alpha:255 }
+            lightSeaGreen = {red:255, green:50, blue:50, alpha:255 }
+
             blue = {red:0, green:0, blue:255, alpha:255 }
+            darkBlue = {red:0, green:0, blue:139, alpha:255 }
+            aqua = {red:0, green:255, blue:255, alpha:255 }
+
+            brown = {red:165, green:42, blue:42, alpha:255 }
+            sandyBrown = {red:244, green:164, blue:96, alpha:255 }
+
             black = {red:0, green:0, blue:0, alpha:255 }
             opaque = {red:0, green:0, blue:0, alpha:0 }
         }
