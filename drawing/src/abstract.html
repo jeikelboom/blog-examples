@@ -1,0 +1,148 @@
+<html>
+<head>
+    <title>javascript exercise</title>
+<!--    <script src="drawing.js" type="text/javascript"/>-->
+</head>
+<body>
+    <H1>picture</H1>
+    <canvas id="painting" width="200" height="200" style="border:1px solid #000000;"></canvas>
+    <br/>
+    <script>
+        draw()
+
+        var red, lightSalmon;
+        var green, lawnGreen, seaGreen,darkCyan;
+        var blue,aqua;
+        var brown, sandyBrown;
+        var black;
+        var white;
+        var opaque;
+
+        // the picture assembly
+        function makePicture3(){
+            return compose([circle1(), box5(), box4(), box3(), box2(), box1(), backgroundmono(white)]);
+        }
+
+        function circle1() {
+            return move(-50,20, circle(40, lightSalmon))
+        }
+        function box1() {
+            return move(50,-40, box(10,50,red))
+        }
+        function box2() {
+            return move(-80, 40, box(60,40,seaGreen))
+        }
+        function box3() {
+            return move(-50,-40, box(100,20,blue))
+        }
+        function box4() {
+            return move(-90,-90, box(180,5,black))
+        }
+        function box5() {
+            return move(90,-90, box(5,180,black))
+        }
+
+        // Some high order funtions for tranformations
+
+        function move(x, y, f) {
+            return function(x1,y1) {
+                return f(x1 -x, y1-y)
+            }
+        }
+
+        function compose(components) {
+            return function (x, y) {
+                for (var  i = 0; i < components.length; i++) {
+                    var color = components[i](x,y)
+                    if (color["alpha"] != 0) {
+                        return color;
+                    }
+                }
+                return opaque
+            }
+        }
+
+        // ---------- Some component functions --------------
+        function circle(radius, color) {
+            var r2 = radius * radius;
+            return function(x,y) {
+                var rds = x * x + y * y;
+                if (rds < r2) {
+                    return color;
+                }
+                return opaque
+            }
+        }
+
+        function box(sizeX, sizeY, color) {
+            return function(x, y) {
+                if (x >= 0 && x <= sizeX && y >= 0 && y < sizeY) {
+                    return color;
+                } else {
+                    return opaque;
+                }
+
+            }
+        }
+
+        function backgroundLandscape() {
+            return function (x, y) {
+                if ( y >=0 ) {
+                    return darkBlue;
+                } else {
+                    return lawnGreen
+                }
+            }
+        }
+
+        function backgroundmono(color) {
+            return function (x, y) {
+                return color;
+            }
+        }
+
+        // ------------------- standard drawaing framework
+        function draw() {
+            init()
+            var ctx = document.getElementById('painting').getContext('2d');
+            var imgdata= ctx.getImageData(0,0, 200,200)
+            var picture = makePicture3()
+            for (var x = -100; x < 100; x++) {
+               for (var y = -100; y < 100; y++) {
+                let pixel = picture(x, y);
+                var i = 200 * (99 -y) + 100 + x
+                imgdata.data[4*i] = pixel["red"];
+                imgdata.data[4*i+1] = pixel["green"];
+                imgdata.data[4*i+2] = pixel["blue"];
+                imgdata.data[4*i+3] = pixel["alpha"];
+               }
+            }
+            ctx.putImageData(imgdata,0,0)
+        }
+
+        function init() {
+            red = {red:255, green:0, blue:0, alpha:255 }
+            lightSalmon = {red:0xFF, green:0xA0, blue:0x7A, alpha:255 }
+
+            green = {red:0, green:255, blue:0, alpha:255 }
+            lawnGreen = {red:124, green:252, blue:0, alpha:255 }
+            seaGreen = {red:46, green:139, blue:87, alpha:255 }
+            darkCyan = {red:0, green:139, blue:139, alpha:255 }
+
+            blue = {red:0, green:0, blue:255, alpha:255 }
+            darkBlue = {red:0, green:0, blue:139, alpha:255 }
+            aqua = {red:0, green:255, blue:255, alpha:255 }
+
+            brown = {red:165, green:42, blue:42, alpha:255 }
+            sandyBrown = {red:244, green:164, blue:96, alpha:255 }
+
+            black = {red:0, green:0, blue:0, alpha:255 }
+            white = {red:255, green:255, blue:255, alpha:255 }
+            opaque = {red:0, green:0, blue:0, alpha:0 }
+        }
+
+    </script>
+
+</body >
+
+</html>
