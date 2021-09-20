@@ -16,10 +16,9 @@
         var brown, sandyBrown;
         var black;
         var opaque;
-        var picture;
 
-        function makePicture(){
-            picture = [fromArray([tree2(), tree1(), background()])];
+        function makePicture3(){
+            return compose([tree2(), tree1(), background()]);
         }
 
         function tree2() {
@@ -27,13 +26,31 @@
         }
 
         function tree1() {
-            return fromArray([circle1(), box1()])
+            return compose([circle1(), box1()])
         }
         function box1() {
             return move(-5,-40, box(10,40,sandyBrown))
         }
         function circle1() {
             return circle(20,darkCyan);
+        }
+
+        function move(x, y, f) {
+            return function(x1,y1) {
+                return f(x1 -x, y1-y)
+            }
+        }
+
+        function compose(components) {
+            return function (x, y) {
+                for (var  i = 0; i < components.length; i++) {
+                    var color = components[i](x,y)
+                    if (color["alpha"] != 0) {
+                        return color;
+                    }
+                }
+                return opaque
+            }
         }
 
         function circle(radius, color) {
@@ -44,12 +61,6 @@
                     return color;
                 }
                 return opaque
-            }
-        }
-
-        function move(x, y, f) {
-            return function(x1,y1) {
-                return f(x1 -x, y1-y)
             }
         }
 
@@ -74,34 +85,15 @@
             }
         }
 
-        function palette(){
-            fromArray([box2()])
-        }
-
-        function fromArray(components) {
-            return function (x, y) {
-                for (var  i = 0; i < components.length; i++) {
-                    var color = components[i](x,y)
-                    if (color["alpha"] != 0) {
-                        return color;
-                    }
-                }
-                return opaque
-            }
-        }
-        
-        function theBigPicture(x, y) {
-            return fromArray(picture)
-        }
-
+        // ------------------- standard drawaing framework
         function draw() {
             init()
-            makePicture()
             var ctx = document.getElementById('painting').getContext('2d');
             var imgdata= ctx.getImageData(0,0, 200,200)
+            var picture = makePicture3()
             for (var x = -100; x < 100; x++) {
                for (var y = -100; y < 100; y++) {
-                let pixel = fromArray(picture)(x, y);
+                let pixel = picture(x, y);
                 var i = 200 * (99 -y) + 100 + x
                 imgdata.data[4*i] = pixel["red"];
                 imgdata.data[4*i+1] = pixel["green"];
