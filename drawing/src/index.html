@@ -17,8 +17,9 @@
         var black;
         var opaque;
 
+        // the picture assembly
         function makePicture3(){
-            return compose([tree2(), tree1(), background()]);
+            return compose([tree2(), tree1(), backgroundLandscape()]);
         }
 
         function tree2() {
@@ -31,9 +32,11 @@
         function box1() {
             return move(-5,-40, box(10,40,sandyBrown))
         }
+
         function circle1() {
             return circle(20,darkCyan);
         }
+        // Some high order funtions for tranformations
 
         function move(x, y, f) {
             return function(x1,y1) {
@@ -53,6 +56,7 @@
             }
         }
 
+        // ---------- Some component functions --------------
         function circle(radius, color) {
             var r2 = radius * radius;
             return function(x,y) {
@@ -75,7 +79,7 @@
             }
         }
 
-        function background() {
+        function backgroundLandscape() {
             return function (x, y) {
                 if ( y >=0 ) {
                     return darkBlue;
