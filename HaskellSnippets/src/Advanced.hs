@@ -54,12 +54,13 @@ maybeLog x | x <= 0 = Nothing
            | otherwise = Just (log x)
 
 combined :: Float -> Maybe Float
-combined x = return x >>= maybeLog >>= maybeSqrt 
+combined x =  maybeLog x >>= maybeSqrt 
 
 combined2 x = do
-  x1 <- return x
-  x2 <- maybeLog
-  maybeSqrt
+  x2 <- maybeLog x
+  maybeSqrt x2
+  
+withfmap x = fmap  maybeSqrt (maybeLog x) 
 
 monadDemo1 :: IO()
 monadDemo1 = do
@@ -72,6 +73,8 @@ monadDemo1 = do
   putStrLn ( "combined2 100 " ++ (show (combined 100)))
   putStrLn ( "combined2 0.01 " ++ (show (combined 0.01)))
   putStrLn ( "combined2 1 " ++ (show (combined 1)))
+  putStrLn ( "withfmap 0.01 == " ++ (show (withfmap 0.01)))
+  putStrLn ( "withfmap 100 == " ++ (show (withfmap 100)))
 
 monadDemo2 :: IO()
 monadDemo2 = do
