@@ -2,10 +2,13 @@ package fp.concepts
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.funktionale.currying.curried
 
 class CurryingTest {
-
+    fun <P1, P2, R> Function2<P1, P2, R>.curried(): (P1) -> (P2) -> R  = {
+            p1 -> {
+            p2 -> this(p1, p2)
+        }
+    }
     @Test
     fun addTupled(){
         val add: (Int, Int) -> Int = { x, y -> x + y}
