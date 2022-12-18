@@ -2,30 +2,9 @@ package fp.monad
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
-import fp.concepts.TheModel.Person
-import fp.concepts.TheModel.Address
-import fp.concepts.TheModel.addressBook
-import fp.concepts.TheModel.person1
-import fp.concepts.TheModel.person2
-import fp.concepts.TheModel.person3
+import fp.model.*
 
-
-import arrow.core.curried
 class OutcomeTest {
-
-    fun buyMovieTicket(person: Person) : Outcome<String> =
-        if (person.age >=18) Good("Seat 45")
-        else person.run{ Ugly("${firstName} ${lastName} is too young") }
-
-    fun mailMovieTicket (person: Person, ticket: String): Boolean  {
-        val address: Address = addressBook[person.address]!!
-        println("${ticket} to ${address}")
-        return true
-    }
-    fun buyADrink(person: Person, alcoholic: Boolean): Outcome<String> =
-        (if (alcoholic && person.age >=18) Good("Beer")
-        else if (! alcoholic) Good("Cola")
-        else person.run{ Ugly("${firstName} ${lastName} is too young too drink beer") })
 
 
     val mailMovieTicketL = lift({x:Person,y: String -> mailMovieTicket(x,y)})
