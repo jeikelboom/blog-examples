@@ -3,6 +3,8 @@ package fp.concepts
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
+
+
 class CurryingTest {
     fun <P1, P2, R> Function2<P1, P2, R>.curried(): (P1) -> (P2) -> R  = {
             p1 -> {
