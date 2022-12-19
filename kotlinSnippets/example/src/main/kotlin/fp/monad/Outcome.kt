@@ -28,10 +28,13 @@ class Ugly<RV>(val message:String) : Outcome<RV>() {
 }
 
 fun <A> liftValueToOutcome(a: A) = Good(a)
-fun <Z> liftToOutcome(f: () -> Z) = Good(f())
-fun<A, Z> liftToOutcome(f: (A) -> Z): (A) -> Outcome<Z> =  { a -> Outcome({f(a)})}
-fun<A, B, Z> liftToOutcome(f: (A, B) -> Z): (A, B) -> Outcome<Z> =  { a, b -> Outcome({f(a, b)})}
+fun<A, B> liftToOutcomeFunctor(f: (A) -> B): (Outcome<A>) -> Outcome<B> =  { a -> a.map(f)}
+
+fun <Z> liftToOutcomeMonad(f: () -> Z) = Good(f())
+fun<A, Z> liftToOutcomeMonad(f: (A) -> Z): (A) -> Outcome<Z> =  { a -> Outcome({f(a)})}
+fun<A, B, Z> liftToOutcomeMonad(f: (A, B) -> Z): (A, B) -> Outcome<Z> =  { a, b -> Outcome({f(a, b)})}
 
 fun <A,B,C> composeFun(f: (A) -> B, g: (B) -> C): (A) -> C = {x -> g(f(x))}
-fun <A, B, C> composeOutcome(mf: (A) -> Outcome<B>, mg: (B) -> Outcome<C>): (A) -> Outcome<C> =
+
+fun <A, B, C> composeOutcomeMonad(mf: (A) -> Outcome<B>, mg: (B) -> Outcome<C>): (A) -> Outcome<C> =
     { a -> mf(a).flatMap(mg) }
