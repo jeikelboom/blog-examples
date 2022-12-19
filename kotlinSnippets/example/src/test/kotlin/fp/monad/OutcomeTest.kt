@@ -29,7 +29,7 @@ class OutcomeTest {
 
 
     @Test
-    fun flatmappedGood(){
+    fun flatmappedClintGood(){
         val result = cinemaVisit(clint, Movie.ScaryMovie, Drink.Beer)
         if (result is Good<Boolean>) {
             assertTrue(result.returnValue)
@@ -37,7 +37,7 @@ class OutcomeTest {
     }
 
     @Test
-    fun flatmappedUgly1a(){
+    fun flatmappedJakeUgly1(){
         val result = cinemaVisit(jake, Movie.ScaryMovie, Drink.Beer)
         if (result is Ugly) {
             assertEquals("Jake Blues is too young to view ScaryMovie", result.message)
@@ -45,7 +45,7 @@ class OutcomeTest {
     }
 
     @Test
-    fun flatmappedUgly1b(){
+    fun flatmappedJakeUgly2(){
         val result = cinemaVisit(jake, Movie.SnowWhite, Drink.Beer)
         if (result is Ugly) {
             assertEquals("Jake Blues is too young too drink Beer", result.message)
@@ -53,7 +53,7 @@ class OutcomeTest {
     }
 
     @Test
-    fun flatmappedUgly1c(){
+    fun flatmappedJakeGood(){
         val result = cinemaVisit(jake, Movie.SnowWhite, Drink.Cola)
         if (result is Good<Boolean>) {
             assertTrue(result.returnValue)
@@ -61,7 +61,7 @@ class OutcomeTest {
     }
 
     @Test
-    fun flatmappedUgly2() {
+    fun flatmappedElwoodUgly() {
         val result = cinemaVisit(elwood, Movie.ScaryMovie, Drink.Beer)
         if (result is Ugly) {
             assertEquals("Elwood Blues is too young too drink Beer", result.message)
@@ -70,7 +70,7 @@ class OutcomeTest {
 
 
     @Test
-    fun flatmappedBad(){
+    fun flatmappedElvisBad(){
         val result = cinemaVisit(elvis, Movie.SnowWhite, Drink.Beer)
         if (result is Bad) {
             println(result)
