@@ -11,8 +11,6 @@ object OptDemo {
     val v1 = logOptional(0.01).flatMap {logOptional(it)}
     val v2 = logOptional(10000000000.0).flatMap {logOptional(it)}
 
-    fun <A, B, C> composeFunction(f: (A) -> B, g: (B) -> C): (A) -> C = { g(f(it)) }
-    fun <A, B> applyFunction(f: (A) -> B, a: A) = f(a)
 
     fun <A> liftValue(a: A): Optional<A> = Optional.of(a)
     fun <A, B> liftFunctor(f: (A) -> B): (Optional<A>) -> Optional<B> = { it.map (f)}
