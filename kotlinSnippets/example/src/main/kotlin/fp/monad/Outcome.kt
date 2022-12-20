@@ -27,11 +27,12 @@ class Ugly<RV>(val message:String) : Outcome<RV>() {
         Ugly<Nothing>(message)
 }
 
-// regular functions
+// regular functions compose and apply
 fun <A, B, C> composeFunction(f: (A) -> B, g: (B) -> C): (A) -> C = {x -> g(f(x))}
+fun <A, B> applyFunction(f: (A) -> B, a: A) = f(a)
+// monadic functions compose and apply
 fun <A, B, C> composeOutcomeMonad(mf: (A) -> Outcome<B>, mg: (B) -> Outcome<C>): (A) -> Outcome<C> =
     { a -> mf(a).flatMap(mg) }
-fun <A, B> applyFunction(f: (A) -> B, a: A) = f(a)
 fun<A, B> applyMonadicFunction(f: (A) -> Outcome<B>, a: Outcome<A>): Outcome<B> = a.flatMap(f)
 
 
