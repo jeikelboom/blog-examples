@@ -9,17 +9,27 @@ class PythagorasTest {
         this.first * this.first + this.second * this.second == this.third * this.third
 
     val range = 1..20
-    val range1 = 1..1
 
-    val pythagorasTriples =
-        range.flatMap {
-        a -> range.flatMap {
-        b -> range.flatMap {
-        c  -> range1
-            .filter { a < b && a*a + b*b == c*c}
-            .map {Triple(a,b,c)}}} }
+    val pythagorasTriples: List<Triple<Int, Int, Int>> =
+                range.flatMap {
+        a ->    range.filter { b -> a < b }.flatMap {
+        b ->    range.filter { c -> a*a + b*b == c*c }.map {
+        c -> Triple(a,b,c) }}}
 
-
+/*
+select a.nr as a, b.nr as b, c.nr as c
+from range a, range b, range c
+where a.nr < b.nr
+and a.nr * a.nr + b.nr * b.nr = c.nr * c.nr
+a     b     c
+ ----  ----  ----
+ 3     4     5
+ 5     12    13
+ 6     8     10
+ 8     15    17
+ 9     12    15
+ 12    16    20
+ */
 
     @Test
     fun triples() {
