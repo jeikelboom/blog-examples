@@ -8,14 +8,18 @@ class PythagorasTest {
     fun Triple<Int,Int,Int>.isPythagorean() =
         this.first * this.first + this.second * this.second == this.third * this.third
 
-    val range1to40 = 1..40
+    val range = 1..20
+    val range1 = 1..1
 
-    val pythagorasTriples: List<Triple<Int, Int, Int>> =
-        range1to40.flatMap {
-            i -> (i..20) .flatMap {
-            j -> (1..20).map {
-            k  -> Triple(i,j,k) }.filter { it.isPythagorean() }
-            } }
+    val pythagorasTriples =
+        range.flatMap {
+        a -> range.flatMap {
+        b -> range.flatMap {
+        c  -> range1
+            .filter { a < b && a*a + b*b == c*c}
+            .map {Triple(a,b,c)}}} }
+
+
 
     @Test
     fun triples() {
