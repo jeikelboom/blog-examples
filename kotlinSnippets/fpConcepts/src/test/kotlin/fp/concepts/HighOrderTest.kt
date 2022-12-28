@@ -15,13 +15,15 @@ class HighOrderTest {
     }
     @Test
     fun lifting() {
-        val lifted: (List<String>) -> List<Int> = liftFunction { it.length }
+        val lifted: (List<String>) -> List<Int> = liftIntoWorldOfLists { it.length }
         assertEquals(listOf(3, 5, 5, 3), lifted(mylist))
+        assertEquals(listOf(1,2,3,4), lifted(listOf("a", "bb", "ccc", "dddd")))
     }
 
     @Test
     fun mapByFold() {
         assertEquals(listOf(3, 5, 5, 3), mylist.mapByFold { it.length })
+        assertEquals(listOf(1,2,3,4), listOf("a", "bb", "ccc", "dddd").mapByFold { it.length })
     }
 
 }
