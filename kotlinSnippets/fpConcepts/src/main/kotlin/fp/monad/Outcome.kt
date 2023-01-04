@@ -13,8 +13,19 @@ sealed class   Outcome<out RV> {
     }
 }
 class Good<RV>(val returnValue: RV) : Outcome<RV>() {
-    override fun <A> map(mapper: (RV) -> A): Outcome<A> = Good(mapper(returnValue))
-    override fun <A> flatMap(monadicFunction: (RV) -> Outcome<A>): Outcome<A> = monadicFunction(returnValue)
+    override fun <A> map(mapper: (RV) -> A): Outcome<A> =
+        try {
+            Good(mapper(returnValue))
+        } catch (error: Exception) {
+            Bad(error)
+        }
+
+    override fun <A> flatMap(monadicFunction: (RV) -> Outcome<A>): Outcome<A> =
+        try {
+            monadicFunction(returnValue)
+        } catch (error: Exception) {
+            Bad(error)
+        }
 }
 class Bad<RV>(val e: Exception): Outcome<RV>() {
     override fun <A> map(mapper: (RV) -> A)= Bad<Nothing>(e)
@@ -37,11 +48,11 @@ fun<A, B> applyMonadicFunction(f: (A) -> Outcome<B>, a: Outcome<A>): Outcome<B> 
 
 
 fun <T> liftValueToOutcome(a: T) = Good(a)
-fun <T> pure(a: T) = liftValueToOutcome(a)
+fun <T> pure(a: T) = Good(a)
 fun<A, B> liftToOutcomeFunctor(f: (A) -> B): (Outcome<A>) -> Outcome<B> =  { a -> a.map(f)}
 
 
 fun <Z> liftToOutcomeMonad(f: () -> Z): () -> Outcome<Z> = {Outcome({f()})}
-fun<A, Z> liftToOutcomeMonad(f: (A) -> Z): (A) -> Outcome<Z> =  { a -> Outcome({f(a)})}
+fun<A, Z> liftToOutcomeMonad(f: (A) -> Z): (A) -> Outcome<Z> =  { a -> Good(a).map(f)}
 fun<A, B, Z> liftToOutcomeMonad(f: (A, B) -> Z): (A, B) -> Outcome<Z> =  { a, b -> Outcome({f(a, b)})}
 
