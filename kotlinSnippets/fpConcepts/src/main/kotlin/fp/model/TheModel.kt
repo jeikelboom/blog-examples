@@ -39,8 +39,8 @@ enum class Drink(val alcoholic: Boolean){
 }
 
 enum class Movie(val minimumAge: Int) {
-    SnowWhite(0),
-    ScaryMovie(12)
+    TheGoodTheBadAndTheUgly(0),
+    ForAFistfulOfDollars(12)
 }
 
 fun buyMovieTicket(person: Person, movie: Movie) : Outcome<String> =

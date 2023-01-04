@@ -30,7 +30,7 @@ class OutcomeTest {
 
     @Test
     fun flatmappedClintGood(){
-        val result = cinemaVisit(clint, Movie.ScaryMovie, Drink.Beer)
+        val result = cinemaVisit(clint, Movie.ForAFistfulOfDollars, Drink.Beer)
         if (result is Good<Boolean>) {
             assertTrue(result.returnValue)
         } else fail("${result}")
@@ -38,15 +38,15 @@ class OutcomeTest {
 
     @Test
     fun flatmappedJakeUgly1(){
-        val result = cinemaVisit(jake, Movie.ScaryMovie, Drink.Beer)
+        val result = cinemaVisit(jake, Movie.ForAFistfulOfDollars, Drink.Beer)
         if (result is Ugly) {
-            assertEquals("Jake Blues is too young to view ScaryMovie", result.message)
+            assertEquals("Jake Blues is too young to view ForAFistfulOfDollars", result.message)
         } else fail("${result}")
     }
 
     @Test
     fun flatmappedJakeUgly2(){
-        val result = cinemaVisit(jake, Movie.SnowWhite, Drink.Beer)
+        val result = cinemaVisit(jake, Movie.TheGoodTheBadAndTheUgly, Drink.Beer)
         if (result is Ugly) {
             assertEquals("Jake Blues is too young too drink Beer", result.message)
         } else fail("${result}")
@@ -54,7 +54,7 @@ class OutcomeTest {
 
     @Test
     fun flatmappedJakeGood(){
-        val result = cinemaVisit(jake, Movie.SnowWhite, Drink.Cola)
+        val result = cinemaVisit(jake, Movie.TheGoodTheBadAndTheUgly, Drink.Cola)
         if (result is Good<Boolean>) {
             assertTrue(result.returnValue)
         } else fail("${result}")
@@ -62,7 +62,7 @@ class OutcomeTest {
 
     @Test
     fun flatmappedElwoodUgly() {
-        val result = cinemaVisit(elwood, Movie.ScaryMovie, Drink.Beer)
+        val result = cinemaVisit(elwood, Movie.ForAFistfulOfDollars, Drink.Beer)
         if (result is Ugly) {
             assertEquals("Elwood Blues is too young too drink Beer", result.message)
         } else fail("${result}")
@@ -71,7 +71,7 @@ class OutcomeTest {
 
     @Test
     fun flatmappedElvisBad(){
-        val result = cinemaVisit(elvis, Movie.SnowWhite, Drink.Beer)
+        val result = cinemaVisit(elvis, Movie.TheGoodTheBadAndTheUgly, Drink.Beer)
         if (result is Bad) {
             println(result)
             assertTrue (result.e is KotlinNullPointerException)
