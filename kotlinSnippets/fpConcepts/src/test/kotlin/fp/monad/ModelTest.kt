@@ -9,7 +9,7 @@ class ModelTest {
     fun `cinemaVisit ClintGood can do all`(){
         val result = cinemaVisit(clint, Movie.ForAFistfulOfDollars, Drink.Beer)
         if (result is Good<Boolean>) {
-            assertTrue(result.returnValue)
+            assertTrue(result.value)
         } else fail("${result}")
     }
 
@@ -33,7 +33,7 @@ class ModelTest {
     fun `cinemaVisit Jake not too young`(){
         val result = cinemaVisit(jake, Movie.TheGoodTheBadAndTheUgly, Drink.Cola)
         if (result is Good<Boolean>) {
-            assertTrue(result.returnValue)
+            assertTrue(result.value)
         } else fail("${result}")
     }
 

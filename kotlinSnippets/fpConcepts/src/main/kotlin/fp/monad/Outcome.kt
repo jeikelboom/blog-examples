@@ -3,39 +3,29 @@ package fp.monad
 sealed class   Outcome<out RV> {
     abstract fun <A> map(mapper: (RV) -> A): Outcome<A>
     abstract fun <A> flatMap(monadicFunction: (RV) -> Outcome<A>): Outcome<A>
-    companion object{
-        operator fun <T> invoke(func: () -> T): Outcome<T> =
-            try {
-                Good(func())
-            } catch (error: Exception) {
-                Bad(error)
-            }
-    }
 }
-class Good<RV>(val returnValue: RV) : Outcome<RV>() {
-    override fun <A> map(mapper: (RV) -> A): Outcome<A> =
+class Good<V>(val value: V) : Outcome<V>() {
+    override fun <A> map(mapper: (V) -> A): Outcome<A> =
         try {
-            Good(mapper(returnValue))
+            Good(mapper(value))
         } catch (error: Exception) {
             Bad(error)
         }
 
-    override fun <A> flatMap(monadicFunction: (RV) -> Outcome<A>): Outcome<A> =
+    override fun <A> flatMap(monadicFunction: (V) -> Outcome<A>): Outcome<A> =
         try {
-            monadicFunction(returnValue)
+            monadicFunction(value)
         } catch (error: Exception) {
             Bad(error)
         }
 }
 class Bad<RV>(val e: Exception): Outcome<RV>() {
-    override fun <A> map(mapper: (RV) -> A)= Bad<Nothing>(e)
-    override fun <A> flatMap(monadicFunction: (RV) -> Outcome<A>)= Bad<Nothing>(e)
+    override fun <A> map(mapper: (RV) -> A)= this as Outcome<A>
+    override fun <A> flatMap(monadicFunction: (RV) -> Outcome<A>)= this as Outcome<A>
 }
 class Ugly<RV>(val message:String) : Outcome<RV>() {
-    override fun <A> map(mapper: (RV) -> A): Outcome<A> =
-        Ugly<Nothing>(message)
-    override fun <A> flatMap(monadicFunction: (RV) -> Outcome<A>): Outcome<A> =
-        Ugly<Nothing>(message)
+    override fun <A> map(mapper: (RV) -> A): Outcome<A> = this as Outcome<A>
+    override fun <A> flatMap(monadicFunction: (RV) -> Outcome<A>): Outcome<A> = this as Outcome<A>
 }
 
 // regular functions compose and apply
