@@ -1,8 +1,4 @@
-package fp.model
-
-import fp.monad.Good
-import fp.monad.Outcome
-import fp.monad.Ugly
+package fp.monad
 
 fun Int.modulo(divider: Int) = this - divider * this.div(divider)
 
@@ -58,5 +54,12 @@ fun buyADrink(person: Person, drink: Drink): Outcome<String> =
     else if (! drink.alcoholic) Good("Cola")
     else person.run{ Ugly("${firstName} ${lastName} is too young too drink ${drink.name}") })
 
+val cinemaVisit = { visitor: Person, movie: Movie, drink: Drink ->
+    pure(visitor).flatMap {
+            person -> buyMovieTicket(person, movie).flatMap {
+            ticket -> buyADrink(person, drink).map {
+            drink -> mailMovieTicket(person, ticket)
+    } } }
+}
 
 

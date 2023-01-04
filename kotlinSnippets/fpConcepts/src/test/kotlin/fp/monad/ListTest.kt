@@ -1,8 +1,6 @@
 package fp.monad
 
 import org.junit.jupiter.api.Test
-import fp.model.*
-
 
 
 class ListTest {
