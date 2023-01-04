@@ -1,6 +1,5 @@
 package fp.monad
 
-fun Int.modulo(divider: Int) = this - divider * this.div(divider)
 
 data class Address(val addressID:
                    Int, val street: String, val houseNr: Int,
