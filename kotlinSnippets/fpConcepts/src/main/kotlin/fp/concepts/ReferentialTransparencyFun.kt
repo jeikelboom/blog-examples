@@ -1,5 +1,6 @@
 package fp.concepts
 
+
 object ReferentialTransparencyFun {
     fun aString() = "Hello"
     fun hasOddLenght(s: String) = (s.length).modulo(2) == 1
